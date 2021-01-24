@@ -1,0 +1,169 @@
+﻿<Window x:Class="FotoViewerEF2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FotoViewerEF2"
+        mc:Ignorable="d"
+        Title="Основное окно" Height="700" Width="1526"
+        KeyDown="Window_KeyDown">
+
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0" Grid.Column="0"
+              VerticalAlignment="Top" Height="25" >
+            <MenuItem Header="Фото">
+                <MenuItem Header="Управление левым фото" Name="menuItemManageLeftFoto"
+                          Click="menuItemManageLeftFoto_Click"></MenuItem>
+                <MenuItem Header="Управление правым фото" Name="menuItemManageRightFoto"
+                          Click="menuItemManageRightFoto_Click"></MenuItem>
+
+                <MenuItem Header="Сортировка по рейтингу" Name="menuItemSortRaiting"
+                          Click="menuItemSortRaiting_Click"></MenuItem>
+
+                <MenuItem Header="Большой фильтр" Name="menuItemFilter"
+                          Click="menuItemFilter_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Города">
+                <MenuItem Header="Перейти к списку городов" Name="menuItemCityList"
+                          Click="menuItemCityList_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Страны">
+                <MenuItem Header="Перейти к списку стран" Name="menuItemCountryList"
+                          Click="menuItemCountryList_Click"></MenuItem>
+            </MenuItem>
+        </Menu>
+
+        <Button Grid.Row="1" Grid.Column="0"
+                Name="buttonChoiceFolder" Content="Выбрать папку"
+                Click="buttonChoiceFolder_Click"></Button>
+
+        <Grid Grid.Row="1" Grid.Column="1" Name ="gridGlobalInfo">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+                <ColumnDefinition Width="160"></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+                <ColumnDefinition Width="160"></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0"
+                   Content="Количество фото:"></Label>
+
+            <Label Grid.Row="0" Grid.Column="1"
+                   Content="{Binding CountFoto}"></Label>
+
+            <Label Grid.Row="1" Grid.Column="0"
+                   Content="Количество игр за сессию:"></Label>
+
+            <Label Grid.Row="1" Grid.Column="1"
+                   Content="{Binding CountGameNow}"></Label>
+
+            <Label Grid.Row="0" Grid.Column="2"
+                   Content="Без игр:"></Label>
+
+            <Label Grid.Row="0" Grid.Column="3"
+                   Content="{Binding CountWithoutGame}"></Label>
+
+            <Label Grid.Row="1" Grid.Column="2"
+                   Content="Без поражений:"></Label>
+
+            <Label Grid.Row="1" Grid.Column="3"
+                   Content="{Binding CountWithoutLose}"></Label>
+
+            <Label Grid.Row="0" Grid.Column="4"
+                   Content="C 0-м штрафом:"></Label>
+
+            <Label Grid.Row="0" Grid.Column="5"
+                   Content="{Binding Count0Penalty}"></Label>
+
+        </Grid>
+
+        <Image Grid.Row="2" Grid.Column="0"
+               Name="imageFoto1"
+               Source="{Binding Foto1File}" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="{Binding Foto1Angle}"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+
+        <Image Grid.Row="2" Grid.Column="1"
+               Name="imageFoto2"
+               Source="{Binding Foto2File}" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="{Binding Foto2Angle}"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+
+        <Label Grid.Row="3" Grid.Column="0" Name="labelFoto1"
+               Content="{Binding Foto1Info}"></Label>
+
+        <Label Grid.Row="3" Grid.Column="1" Name="labelFoto2"
+               Content="{Binding Foto2Info}"></Label>
+
+        <Grid Grid.Row="4" Grid.Column="0" Name="gridButtons1">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="40"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Row="0" Grid.Column="0"
+                Name="buttonFoto1" Content="Выбрать первый"
+                Click="buttonFoto1_Click"></Button>
+
+            <Button Grid.Row="0" Grid.Column="1"
+                Name="buttonRotateFoto1" Content="R"
+                    Click="buttonRotateFoto1_Click"></Button>
+
+        </Grid>
+
+        <Grid Grid.Row="4" Grid.Column="1" Name="gridButtons2">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="40"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Row="0" Grid.Column="0"
+                Name="buttonFoto2" Content="Выбрать второй"
+                Click="buttonFoto2_Click"></Button>
+
+            <Button Grid.Row="0" Grid.Column="1"
+                Name="buttonRotateFoto2" Content="R"
+                Click="buttonRotateFoto2_Click"></Button>
+
+        </Grid>
+
+    </Grid>
+</Window>

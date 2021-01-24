@@ -1,0 +1,92 @@
+﻿<Window x:Class="FotoViewerEF2.FotoListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FotoViewerEF2"
+        mc:Ignorable="d"
+        Title="Фотографии" Height="600" Width="800">
+    
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Name="gridTitle">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Content="{Binding FotoFileName}"></Label>
+            <Label Grid.Row="1" Content="{Binding FotoMainStatistics}"></Label>
+            
+        </Grid>
+
+        <Grid Grid.Row="1" Name="gridFotoMain">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="220"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Image Grid.Row="0" Grid.Column="0"
+                   Source="{Binding FileName}"></Image>
+
+            <Grid Grid.Column="1" Name="gridFotoMainStatistic">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Content="Город"></Label>
+                <ComboBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
+                          ItemsSource="{Binding Cities}" SelectedItem="{Binding SelectCity}"></ComboBox>
+                <Button Grid.Row="0" Grid.Column="3" Content="Убрать"
+                        Name="ButtonDeleteCity" Click="ButtonDeleteCity_Click"></Button>
+
+                <Label Grid.Row="1" Grid.Column="0" Content="Страна"></Label>
+                <Label Grid.Row="1" Grid.Column="1" Content="{Binding SelectCountry}"></Label>
+
+                <Button Grid.Row="3" Grid.ColumnSpan="2" Content="Сохранить 100" Name="Save100" Click="Save100_Click"></Button>
+
+            </Grid>
+            
+        </Grid>
+
+        <Grid Grid.Row="2" Name="gridControlButtons">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Row="0" Grid.Column="0" Name="buttonLeft"
+                    Content="&lt;-" Click="buttonLeft_Click"></Button>
+
+            <Label Grid.Row="0" Grid.Column="1" Content="{Binding NumberCurrent}"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+
+            <Button Grid.Row="0" Grid.Column="2" Name="buttonRight"
+                    Content="-&gt;" Click="buttonRight_Click"></Button>
+            
+        </Grid>
+        
+    </Grid>
+    
+</Window>

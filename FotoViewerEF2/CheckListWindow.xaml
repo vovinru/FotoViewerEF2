@@ -1,0 +1,30 @@
+﻿<Window x:Class="FotoViewerEF2.CheckListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FotoViewerEF2"
+        mc:Ignorable="d"
+        Title="CheckListWindow" Height="450" Width="250">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Content="{Binding Title}"></Label>
+
+        <ListBox Grid.Row="1" ItemsSource="{Binding Items}" SelectionMode="Multiple" Name="listBoxThis"></ListBox>
+
+        <Button Grid.Row="2" Name="buttonOk" Content="ОК"
+                Click="buttonOk_Click"></Button>
+
+        <Button Grid.Row="3" Name="buttonCancel" Content="Отмена"
+                Click="buttonCancel_Click"></Button>
+
+
+    </Grid>
+</Window>
