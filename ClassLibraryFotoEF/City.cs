@@ -46,7 +46,7 @@ namespace ClassLibraryFotoEF
 
         public override string ToString()
         {
-            return Name;
+            return string.Format("{0} ({1})", Name, Fotoes.Count);
         }
     }
 }
