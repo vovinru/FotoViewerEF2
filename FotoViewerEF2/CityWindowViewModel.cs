@@ -7,13 +7,8 @@ using System.Threading.Tasks;
 
 namespace FotoViewerEF2
 {
-    public class CityWindowViewModel
+    public class CityWindowViewModel:BaseViewModel
     {
-        public FotoContext FotoContext
-        {
-            get;
-            set;
-        }
 
         public City City
         {
@@ -57,9 +52,9 @@ namespace FotoViewerEF2
             }
         }
 
-        public CityWindowViewModel(FotoContext fotoContext, City city)
+        public CityWindowViewModel(FotoContext fotoContext, City city) :
+            base(fotoContext)
         {
-            FotoContext = fotoContext;
             City = city;
         }
     }

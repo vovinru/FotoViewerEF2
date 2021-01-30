@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FotoViewerEF2
 {
-    public class FilterWindowViewModel
+    public class FilterWindowViewModel:BaseViewModel
     {
         #region fields
 
@@ -22,15 +22,6 @@ namespace FotoViewerEF2
         #endregion
 
         #region properties
-
-        /// <summary>
-        /// Контекст с описанием фото
-        /// </summary>
-        public FotoContext FotoContext
-        {
-            get;
-            set;
-        }
 
         /// <summary>
         /// Флаг о том что выбираем все города
@@ -225,9 +216,9 @@ namespace FotoViewerEF2
 
         #region constructors
 
-        public FilterWindowViewModel(FotoContext fotoContext)
+        public FilterWindowViewModel(FotoContext fotoContext):
+            base(fotoContext)
         {
-            FotoContext = fotoContext;
             AllDates = true;
 
             DateStart = DateTime.Now;

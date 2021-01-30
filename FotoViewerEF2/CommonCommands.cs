@@ -15,7 +15,7 @@ namespace FotoViewerEF2
             country.Name = "Новая страна";
             fotoContext.AddCountry(country);
 
-            CountryWindow window = new CountryWindow(country);
+            CountryWindow window = new CountryWindow(fotoContext, country);
             window.ShowDialog();
 
             fotoContext.SaveChanges();

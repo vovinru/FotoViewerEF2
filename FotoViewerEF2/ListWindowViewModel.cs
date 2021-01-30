@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FotoViewerEF2
 {
-    public class ListWindowViewModel
+    public class ListWindowViewModel:BaseViewModel
     {
         #region fields
         #endregion
@@ -42,15 +42,6 @@ namespace FotoViewerEF2
         }
 
         /// <summary>
-        /// Ссылка на контейнер с фото и остальным
-        /// </summary>
-        public FotoContext FotoContext
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// Тип объекта который в списке
         /// </summary>
         public FotoListType FotoListType
@@ -63,9 +54,9 @@ namespace FotoViewerEF2
 
         #region constructors
 
-        public ListWindowViewModel(FotoContext fotoContext, FotoListType fotoListType)
+        public ListWindowViewModel(FotoContext fotoContext, FotoListType fotoListType) :
+            base(fotoContext)
         {
-            FotoContext = fotoContext;
             FotoListType = fotoListType;
 
             UpdateItems();

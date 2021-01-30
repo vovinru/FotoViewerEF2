@@ -22,11 +22,11 @@ namespace FotoViewerEF2
     {
         CountryWindowViewModel _viewModel;
 
-        public CountryWindow(Country country)
+        public CountryWindow(FotoContext fotoContext, Country country)
         {
             InitializeComponent();
 
-            _viewModel = new CountryWindowViewModel(country);
+            _viewModel = new CountryWindowViewModel(fotoContext, country);
             UpdateViewModel();
         }
 

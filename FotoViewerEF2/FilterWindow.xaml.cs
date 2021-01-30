@@ -42,7 +42,7 @@ namespace FotoViewerEF2
 
         private void buttonChoiceCities_Click(object sender, RoutedEventArgs e)
         {
-            CheckListWindow window = new CheckListWindow(_viewModel.FotoContext.Cities.ToList<object>());
+            CheckListWindow window = new CheckListWindow(_viewModel.FotoContext, _viewModel.FotoContext.Cities.ToList<object>());
             if(window.ShowDialog() == true)
             {
                 _viewModel.SelectedCities = window.GetSelectedItems().Cast<City>().ToList();
@@ -52,7 +52,7 @@ namespace FotoViewerEF2
 
         private void buttonChoiceCountries_Click(object sender, RoutedEventArgs e)
         {
-            CheckListWindow window = new CheckListWindow(_viewModel.FotoContext.Countries.ToList<object>());
+            CheckListWindow window = new CheckListWindow(_viewModel.FotoContext, _viewModel.FotoContext.Countries.ToList<object>());
             if (window.ShowDialog() == true)
             {
                 _viewModel.SelectedCountries = window.GetSelectedItems().Cast<Country>().ToList();

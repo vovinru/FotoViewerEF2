@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClassLibraryFotoEF;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,11 +22,11 @@ namespace FotoViewerEF2
     {
         CheckListWindowViewModel _viewModel;
 
-        public CheckListWindow(List<object> items)
+        public CheckListWindow(FotoContext fotoContext, List<object> items)
         {
             InitializeComponent();
 
-            _viewModel = new CheckListWindowViewModel(items);
+            _viewModel = new CheckListWindowViewModel(fotoContext, items);
             DataContext = _viewModel;
         }
 

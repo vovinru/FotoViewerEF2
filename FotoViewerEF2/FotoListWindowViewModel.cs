@@ -9,14 +9,8 @@ using System.Threading.Tasks;
 
 namespace FotoViewerEF2
 {
-    public class FotoListWindowViewModel
+    public class FotoListWindowViewModel:BaseViewModel
     {
-
-        public FotoContext FotoContext
-        {
-            get;
-            set;
-        }
 
         List<Foto> Fotos
         {
@@ -96,11 +90,11 @@ namespace FotoViewerEF2
             }
         }
 
-        public FotoListWindowViewModel(FotoContext fotoContext, List<Foto> fotos, Foto selectedFoto)
+        public FotoListWindowViewModel(FotoContext fotoContext, List<Foto> fotos, Foto selectedFoto) :
+            base(fotoContext)
         {
             fotos.ForEach(f => f.CalculateRaiting());
 
-            FotoContext = fotoContext;
             SelectFoto = selectedFoto;
 
             Fotos = fotos;

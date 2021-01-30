@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FotoViewerEF2
 {
-    public class MainWindowViewModel
+    public class MainWindowViewModel:BaseViewModel
     {
         #region fields
 
@@ -17,11 +17,6 @@ namespace FotoViewerEF2
 
         #region propertyes
 
-        public FotoContext FotoContext
-        {
-            get;
-            set;
-        }
 
         public Foto Foto1
         {
@@ -131,9 +126,9 @@ namespace FotoViewerEF2
 
         #region costructors
 
-        public MainWindowViewModel()
+        public MainWindowViewModel() :
+            base(new FotoContext())
         {
-            FotoContext = new FotoContext();
             foreach (Foto f in FotoContext.Fotos)
                 f.Date = null;
 

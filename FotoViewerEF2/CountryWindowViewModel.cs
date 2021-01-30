@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FotoViewerEF2
 {
-    public class CountryWindowViewModel
+    public class CountryWindowViewModel : BaseViewModel
     {
 
         public Country Country
@@ -21,7 +21,7 @@ namespace FotoViewerEF2
         {
             get
             {
-                return Country.Name; 
+                return Country.Name;
             }
             set
             {
@@ -29,7 +29,8 @@ namespace FotoViewerEF2
             }
         }
 
-        public CountryWindowViewModel(Country country)
+        public CountryWindowViewModel(FotoContext fotoContext, Country country) :
+            base(fotoContext)
         {
             Country = country;
         }

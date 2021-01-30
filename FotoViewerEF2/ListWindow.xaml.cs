@@ -77,7 +77,7 @@ namespace FotoViewerEF2
                     {
                         Country country = (Country)_viewModel.SelectedItem;
 
-                        CountryWindow window = new CountryWindow(country);
+                        CountryWindow window = new CountryWindow(_viewModel.FotoContext, country);
                         window.ShowDialog();
                         break;
                     }

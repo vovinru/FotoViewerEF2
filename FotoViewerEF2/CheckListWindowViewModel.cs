@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClassLibraryFotoEF;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FotoViewerEF2
 {
-    public class CheckListWindowViewModel
+    public class CheckListWindowViewModel:BaseViewModel
     {
         #region propertyes
 
@@ -20,7 +21,8 @@ namespace FotoViewerEF2
 
         #region constructors
 
-        public CheckListWindowViewModel(List<object> items)
+        public CheckListWindowViewModel(FotoContext fotoContext, List<object> items) :
+            base(fotoContext)
         {
             Items = items;
         }
