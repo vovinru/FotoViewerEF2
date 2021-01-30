@@ -32,7 +32,7 @@ namespace ClassLibraryFotoEF
         public FotoContext()
             :base("DBConnection_Test")
         {
-
+            Cities.Load();
         }
 
         public Foto GetRandomFoto()

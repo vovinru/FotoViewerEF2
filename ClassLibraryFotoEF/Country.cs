@@ -33,7 +33,7 @@ namespace ClassLibraryFotoEF
 
         public override string ToString()
         {
-            return Name;
+            return String.Format("{0} ({1})", Name, Cities.Sum(c => c.Fotoes.Count));
         }
     }
 }
