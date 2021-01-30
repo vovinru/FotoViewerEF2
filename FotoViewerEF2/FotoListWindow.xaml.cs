@@ -37,16 +37,26 @@ namespace FotoViewerEF2
             DataContext = _viewModel;
         }
 
-        private void buttonLeft_Click(object sender, RoutedEventArgs e)
+        public void LeftClick()
         {
             _viewModel.ShiftLeft();
             UpdateViewModel();
         }
 
-        private void buttonRight_Click(object sender, RoutedEventArgs e)
+        public void RightClick()
         {
             _viewModel.ShiftRight();
             UpdateViewModel();
+        }
+
+        private void buttonLeft_Click(object sender, RoutedEventArgs e)
+        {
+            LeftClick();
+        }
+
+        private void buttonRight_Click(object sender, RoutedEventArgs e)
+        {
+            RightClick();
         }
 
 
@@ -60,6 +70,18 @@ namespace FotoViewerEF2
         {
             _viewModel.SelectCity = null;
             UpdateViewModel();
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Left)
+            {
+                LeftClick();
+            }
+            if (e.Key == Key.Right)
+            {
+                RightClick();
+            }
         }
     }
 }
