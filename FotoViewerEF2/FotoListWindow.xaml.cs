@@ -18,9 +18,15 @@ namespace FotoViewerEF2
     /// <summary>
     /// Логика взаимодействия для FotoListWindow.xaml
     /// </summary>
-    public partial class FotoListWindow : Window
+    public partial class FotoListWindow : BaseWindow
     {
-        FotoListWindowViewModel _viewModel;
+        public FotoListWindowViewModel ViewModel
+        {
+            get
+            {
+                return (FotoListWindowViewModel)_viewModel;
+            }
+        }
 
         public FotoListWindow(FotoContext fotoContext, List<Foto> fotos, Foto selectFoto)
         {
@@ -30,22 +36,15 @@ namespace FotoViewerEF2
             UpdateViewModel();
         }
 
-        public void UpdateViewModel()
-        {
-            DataContext = null;
-            _viewModel.FotoContext.SaveChanges();
-            DataContext = _viewModel;
-        }
-
         public void LeftClick()
         {
-            _viewModel.ShiftLeft();
+            ViewModel.ShiftLeft();
             UpdateViewModel();
         }
 
         public void RightClick()
         {
-            _viewModel.ShiftRight();
+            ViewModel.ShiftRight();
             UpdateViewModel();
         }
 
@@ -62,13 +61,13 @@ namespace FotoViewerEF2
 
         private void Save100_Click(object sender, RoutedEventArgs e)
         {
-            _viewModel.SaveTop100Foto();
+            ViewModel.SaveTop100Foto();
             
         }
 
         private void ButtonDeleteCity_Click(object sender, RoutedEventArgs e)
         {
-            _viewModel.SelectCity = null;
+            ViewModel.SelectCity = null;
             UpdateViewModel();
         }
 

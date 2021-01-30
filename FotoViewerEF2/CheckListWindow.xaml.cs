@@ -18,9 +18,8 @@ namespace FotoViewerEF2
     /// <summary>
     /// Логика взаимодействия для CheckListWindow.xaml
     /// </summary>
-    public partial class CheckListWindow : Window
+    public partial class CheckListWindow : BaseWindow
     {
-        CheckListWindowViewModel _viewModel;
 
         public CheckListWindow(FotoContext fotoContext, List<object> items)
         {

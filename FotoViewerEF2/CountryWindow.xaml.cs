@@ -18,9 +18,8 @@ namespace FotoViewerEF2
     /// <summary>
     /// Логика взаимодействия для CountryWindow.xaml
     /// </summary>
-    public partial class CountryWindow : Window
+    public partial class CountryWindow : BaseWindow
     {
-        CountryWindowViewModel _viewModel;
 
         public CountryWindow(FotoContext fotoContext, Country country)
         {
@@ -28,12 +27,6 @@ namespace FotoViewerEF2
 
             _viewModel = new CountryWindowViewModel(fotoContext, country);
             UpdateViewModel();
-        }
-
-        public void UpdateViewModel()
-        {
-            DataContext = null;
-            DataContext = _viewModel;
         }
 
         private void buttonOk_Click(object sender, RoutedEventArgs e)

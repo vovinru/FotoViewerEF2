@@ -18,21 +18,14 @@ namespace FotoViewerEF2
     /// <summary>
     /// Логика взаимодействия для CityWindow.xaml
     /// </summary>
-    public partial class CityWindow : Window
+    public partial class CityWindow : BaseWindow
     {
-        CityWindowViewModel _viewModel;
 
         public CityWindow(FotoContext fotoContext, City city)
         {
             InitializeComponent();
             _viewModel = new CityWindowViewModel(fotoContext, city);
             UpdateViewModel();
-        }
-        
-        public void UpdateViewModel()
-        {
-            DataContext = null;
-            DataContext = _viewModel;
         }
 
         private void buttonOk_Click(object sender, RoutedEventArgs e)

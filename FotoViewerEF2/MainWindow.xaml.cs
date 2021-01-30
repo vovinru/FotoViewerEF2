@@ -21,9 +21,16 @@ namespace FotoViewerEF2
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : BaseWindow
     {
-        MainWindowViewModel _viewModel;
+
+        public MainWindowViewModel ViewModel
+        {
+            get
+            {
+                return (MainWindowViewModel)_viewModel;
+            }
+        }
 
         public MainWindow()
         {
@@ -32,31 +39,25 @@ namespace FotoViewerEF2
             UpdateViewModel();
         }
 
-        public void UpdateViewModel()
-        {
-            DataContext = null;
-            DataContext = _viewModel;
-        }
-
         private void buttonChoiceFolder_Click(object sender, RoutedEventArgs e)
         {
             FolderBrowserDialog folderDialog = new FolderBrowserDialog();
             if(folderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                _viewModel.AddFotoFolder(folderDialog.SelectedPath);
+                ViewModel.AddFotoFolder(folderDialog.SelectedPath);
                 UpdateViewModel();
             }
         }
 
         private void buttonFoto1_Click(object sender, RoutedEventArgs e)
         {
-            _viewModel.ClickFoto1();
+            ViewModel.ClickFoto1();
             UpdateViewModel();
         }
 
         private void buttonFoto2_Click(object sender, RoutedEventArgs e)
         {
-            _viewModel.ClickFoto2();
+            ViewModel.ClickFoto2();
             UpdateViewModel();
         }
 
@@ -75,7 +76,7 @@ namespace FotoViewerEF2
         private void menuItemManageLeftFoto_Click(object sender, RoutedEventArgs e)
         {
             FotoListWindow window = new FotoListWindow(_viewModel.FotoContext,
-                new List<Foto> { _viewModel.Foto1 }, _viewModel.Foto1);
+                new List<Foto> { ViewModel.Foto1 }, ViewModel.Foto1);
 
             window.ShowDialog();
             UpdateViewModel();
@@ -84,7 +85,7 @@ namespace FotoViewerEF2
         private void menuItemManageRightFoto_Click(object sender, RoutedEventArgs e)
         {
             FotoListWindow window = new FotoListWindow(_viewModel.FotoContext,
-                new List<Foto> { _viewModel.Foto2 }, _viewModel.Foto2);
+                new List<Foto> { ViewModel.Foto2 }, ViewModel.Foto2);
 
             window.ShowDialog();
             UpdateViewModel();
@@ -110,13 +111,13 @@ namespace FotoViewerEF2
 
         private void buttonRotateFoto1_Click(object sender, RoutedEventArgs e)
         {
-            _viewModel.RotateFoto1();
+            ViewModel.RotateFoto1();
             UpdateViewModel();
         }
 
         private void buttonRotateFoto2_Click(object sender, RoutedEventArgs e)
         {
-            _viewModel.RotateFoto2();
+            ViewModel.RotateFoto2();
             UpdateViewModel();
         }
 
@@ -124,12 +125,12 @@ namespace FotoViewerEF2
         {
             if(e.Key == Key.Left)
             {
-                _viewModel.ClickFoto1();
+                ViewModel.ClickFoto1();
                 UpdateViewModel();
             }
             if(e.Key == Key.Right)
             {
-                _viewModel.ClickFoto2();
+                ViewModel.ClickFoto2();
                 UpdateViewModel();
             }
         }

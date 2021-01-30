@@ -18,9 +18,16 @@ namespace FotoViewerEF2
     /// <summary>
     /// Логика взаимодействия для ListWindow.xaml
     /// </summary>
-    public partial class ListWindow : Window
+    public partial class ListWindow : BaseWindow
     {
-        ListWindowViewModel _viewModel;
+
+        public ListWindowViewModel ViewModel
+        {
+            get
+            {
+                return (ListWindowViewModel)_viewModel;
+            }
+        }
 
         public ListWindow(FotoContext fotoContext, FotoListType fotoListType)
         {
@@ -30,16 +37,9 @@ namespace FotoViewerEF2
             UpdateViewModel();
         }
 
-        public void UpdateViewModel()
-        {
-            DataContext = null;
-            _viewModel.UpdateItems();
-            DataContext = _viewModel;
-        }
-
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
-            switch(_viewModel.FotoListType)
+            switch(ViewModel.FotoListType)
             {
                 case FotoListType.Country:
                     {
@@ -65,17 +65,17 @@ namespace FotoViewerEF2
 
         private void buttonCreate_Click(object sender, RoutedEventArgs e)
         {
-            if(_viewModel.SelectedItem == null)
+            if(ViewModel.SelectedItem == null)
             {
                 MessageBox.Show("Не выбран элемент для редактирования!");
                 return;
             }
 
-            switch (_viewModel.FotoListType)
+            switch (ViewModel.FotoListType)
             {
                 case FotoListType.Country:
                     {
-                        Country country = (Country)_viewModel.SelectedItem;
+                        Country country = (Country)ViewModel.SelectedItem;
 
                         CountryWindow window = new CountryWindow(_viewModel.FotoContext, country);
                         window.ShowDialog();
@@ -84,7 +84,7 @@ namespace FotoViewerEF2
 
                 case FotoListType.City:
                     {
-                        City city = (City)_viewModel.SelectedItem;
+                        City city = (City)ViewModel.SelectedItem;
 
                         CityWindow window = new CityWindow(_viewModel.FotoContext, city);
                         window.ShowDialog();
@@ -99,17 +99,17 @@ namespace FotoViewerEF2
 
         private void buttonDelete_Click(object sender, RoutedEventArgs e)
         {
-            if (_viewModel.SelectedItem == null)
+            if (ViewModel.SelectedItem == null)
             {
                 MessageBox.Show("Не выбран элемент для удаления!");
                 return;
             }
 
-            switch (_viewModel.FotoListType)
+            switch (ViewModel.FotoListType)
             {
                 case FotoListType.Country:
                     {
-                        Country country = (Country)_viewModel.SelectedItem;
+                        Country country = (Country)ViewModel.SelectedItem;
 
                         if (MessageBox.Show(string.Format("Вы действительно хотите удалить страну: {0}?", country), "", MessageBoxButton.YesNo)
                             == MessageBoxResult.Yes)
@@ -122,7 +122,7 @@ namespace FotoViewerEF2
 
                 case FotoListType.City:
                     {
-                        City city = (City)_viewModel.SelectedItem;
+                        City city = (City)ViewModel.SelectedItem;
 
                         if (MessageBox.Show(string.Format("Вы действительно хотите удалить город: {0}?", city), "", MessageBoxButton.YesNo)
                             == MessageBoxResult.Yes)
@@ -136,6 +136,14 @@ namespace FotoViewerEF2
 
             _viewModel.FotoContext.SaveChanges();
             UpdateViewModel();
+        }
+
+
+
+        public override void UpdateViewModel()
+        {
+            ViewModel.UpdateItems();
+            base.UpdateViewModel();
         }
     }
 }

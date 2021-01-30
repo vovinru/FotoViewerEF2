@@ -73,6 +73,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BaseViewModel.cs" />
+    <Compile Include="BaseWindow.cs" />
     <Compile Include="CheckListWindow.xaml.cs">
       <DependentUpon>CheckListWindow.xaml</DependentUpon>
     </Compile>

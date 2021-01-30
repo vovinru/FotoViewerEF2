@@ -18,9 +18,16 @@ namespace FotoViewerEF2
     /// <summary>
     /// Логика взаимодействия для WindowFilter.xaml
     /// </summary>
-    public partial class WindowFilter : Window
+    public partial class WindowFilter : BaseWindow
     {
-        FilterWindowViewModel _viewModel;
+        public FilterWindowViewModel ViewModel
+        {
+            get
+            {
+                return (FilterWindowViewModel)_viewModel;
+            }
+        }
+
 
         public WindowFilter(FotoContext fotoContext)
         {
@@ -29,15 +36,9 @@ namespace FotoViewerEF2
             DataContext = _viewModel;
         }
 
-        public void UpdateViewModel()
-        {
-            DataContext = null;
-            DataContext = _viewModel;
-        }
-
         public Filter GetFilter()
         {
-            return _viewModel.GetFilter();
+            return ViewModel.GetFilter();
         }
 
         private void buttonChoiceCities_Click(object sender, RoutedEventArgs e)
@@ -45,7 +46,7 @@ namespace FotoViewerEF2
             CheckListWindow window = new CheckListWindow(_viewModel.FotoContext, _viewModel.FotoContext.Cities.ToList<object>());
             if(window.ShowDialog() == true)
             {
-                _viewModel.SelectedCities = window.GetSelectedItems().Cast<City>().ToList();
+                ViewModel.SelectedCities = window.GetSelectedItems().Cast<City>().ToList();
                 UpdateViewModel();
             }
         }
@@ -55,7 +56,7 @@ namespace FotoViewerEF2
             CheckListWindow window = new CheckListWindow(_viewModel.FotoContext, _viewModel.FotoContext.Countries.ToList<object>());
             if (window.ShowDialog() == true)
             {
-                _viewModel.SelectedCountries = window.GetSelectedItems().Cast<Country>().ToList();
+                ViewModel.SelectedCountries = window.GetSelectedItems().Cast<Country>().ToList();
                 UpdateViewModel();
             }
         }
