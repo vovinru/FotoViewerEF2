@@ -64,6 +64,8 @@
                 <Label Grid.Row="1" Grid.Column="1" Content="{Binding SelectCountry}"></Label>
 
                 <Button Grid.Row="3" Grid.ColumnSpan="2" Content="Сохранить 100" Name="Save100" Click="Save100_Click"></Button>
+                <CheckBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2"
+                          IsChecked="{Binding CreateGroup}" Content="Группирование"></CheckBox>
 
             </Grid>
             

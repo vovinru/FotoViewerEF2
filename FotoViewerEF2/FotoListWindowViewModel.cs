@@ -18,6 +18,24 @@ namespace FotoViewerEF2
             set;
         }
 
+        /// <summary>
+        /// Группа фото (для изменения большого количества фотографий)
+        /// </summary>
+        List<Foto> GroupFotos
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Идет ли создание группы
+        /// </summary>
+        public bool CreateGroup
+        {
+            get;
+            set;
+        }
+
         Foto SelectFoto
         {
             get;
@@ -68,6 +86,14 @@ namespace FotoViewerEF2
                     SelectFoto.CityId = null;
                 else
                     SelectFoto.CityId = value.CityId;
+
+                foreach(Foto f in GroupFotos)
+                {
+                    if (value == null)
+                        f.CityId = null;
+                    else
+                        f.CityId = value.CityId;
+                }
             }
         }
 
@@ -102,6 +128,9 @@ namespace FotoViewerEF2
             Cities = new List<City>();
             foreach (City city in FotoContext.Cities)
                 Cities.Add(city);
+
+            GroupFotos = new List<Foto>();
+            CreateGroup = false;
         }
 
         public void ShiftLeft()
@@ -111,6 +140,11 @@ namespace FotoViewerEF2
 
             if (indexCurrent < 0)
                 indexCurrent = Fotos.Count - 1;
+
+            if (CreateGroup)
+                GroupFotos.Remove(SelectFoto);
+            else
+                GroupFotos.Clear();
 
             SelectFoto = Fotos[indexCurrent];
         }
@@ -122,6 +156,11 @@ namespace FotoViewerEF2
 
             if (indexCurrent >= Fotos.Count)
                 indexCurrent = 0;
+
+            if (CreateGroup)
+                GroupFotos.Add(SelectFoto);
+            else
+                GroupFotos.Clear();
 
             SelectFoto = Fotos[indexCurrent];
         }
