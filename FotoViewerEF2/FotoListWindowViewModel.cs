@@ -76,23 +76,15 @@ namespace FotoViewerEF2
         {
             get
             {
-                if (SelectFoto.CityId.HasValue)
-                    return FotoContext.GetCity(SelectFoto.CityId.Value);
-                return null;
+                return SelectFoto.City;
             }
             set
             {
-                if (value == null)
-                    SelectFoto.CityId = null;
-                else
-                    SelectFoto.CityId = value.CityId;
+                SelectFoto.City = value;
 
                 foreach(Foto f in GroupFotos)
                 {
-                    if (value == null)
-                        f.CityId = null;
-                    else
-                        f.CityId = value.CityId;
+                    f.City = value;
                 }
             }
         }

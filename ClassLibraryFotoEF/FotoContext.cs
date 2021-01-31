@@ -68,11 +68,6 @@ namespace ClassLibraryFotoEF
             Cities.Add(city);
         }
 
-        public City GetCity(int cityId)
-        {
-            return Cities.FirstOrDefault(c => c.CityId == cityId);
-        }
-
         public List<Foto> GetFotosByFilter(Filter filter)
         {
             List<Foto> fotos = Fotos.ToList();
@@ -89,10 +84,10 @@ namespace ClassLibraryFotoEF
             {
                 for(int i=0; i<fotos.Count;i++)
                 {
-                    if (fotos[i].CityId == null)
+                    if (fotos[i].City == null)
                         continue;
 
-                    Country country = GetCity(fotos[i].CityId.Value).Country;
+                    Country country = fotos[i].City.Country;
 
                     if(!filter.SelectedCountries.Contains(country))
                     {

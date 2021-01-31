@@ -79,6 +79,12 @@ namespace ClassLibraryFotoEF
             set;
         }
 
+        public City City
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// Ссылки на участие в топах
         /// </summary>
