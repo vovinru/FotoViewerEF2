@@ -82,6 +82,11 @@ namespace FotoViewerEF2
                     foreach (Object obj in FotoContext.Countries)
                         Items.Add(obj);
                     break;
+
+                case FotoListType.Person:
+                    foreach (Object obj in FotoContext.Persons)
+                        Items.Add(obj);
+                    break;
             }
         }
 

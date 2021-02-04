@@ -152,5 +152,11 @@ namespace FotoViewerEF2
 
             }
         }
+
+        private void menuItemPersonList_Click(object sender, RoutedEventArgs e)
+        {
+            ListWindow window = new ListWindow(_viewModel.FotoContext, FotoListType.Person);
+            window.ShowDialog();
+        }
     }
 }

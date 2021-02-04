@@ -94,6 +94,12 @@ namespace ClassLibraryFotoEF
             set;
         }
 
+        public ICollection<Person> Persons
+        {
+            get;
+            set;
+        }
+
 
         public void CalculateRaiting()
         {

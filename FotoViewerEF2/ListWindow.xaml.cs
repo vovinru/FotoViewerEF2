@@ -49,12 +49,13 @@ namespace FotoViewerEF2
 
                 case FotoListType.City:
                     {
-                        City city = new City();
-                        city.Name = "Новый город";
-                        _viewModel.FotoContext.AddCity(city);
+                        CommonCommands.AddNewCity(_viewModel.FotoContext);
+                        break;
+                    }
 
-                        CityWindow window = new CityWindow(_viewModel.FotoContext, city);
-                        window.ShowDialog();
+                case FotoListType.Person:
+                    {
+                        CommonCommands.AddNewPerson(_viewModel.FotoContext);
                         break;
                     }
             }
@@ -90,6 +91,15 @@ namespace FotoViewerEF2
                         window.ShowDialog();
                         break;
 
+                    }
+
+                case FotoListType.Person:
+                    {
+                        Person person = (Person)ViewModel.SelectedItem;
+
+                        PersonWindow window = new PersonWindow(_viewModel.FotoContext, person);
+                        window.ShowDialog();
+                        break;
                     }
             }
 
@@ -128,6 +138,19 @@ namespace FotoViewerEF2
                             == MessageBoxResult.Yes)
                         {
                             _viewModel.FotoContext.Cities.Remove(city);
+                            break;
+                        }
+                        break;
+                    }
+
+                case FotoListType.Person:
+                    {
+                        Person person = (Person)ViewModel.SelectedItem;
+
+                        if (MessageBox.Show(string.Format("Вы действительно хотите удалить персонажа: {0}?", person), "", MessageBoxButton.YesNo)
+                            == MessageBoxResult.Yes)
+                        {
+                            _viewModel.FotoContext.Persons.Remove(person);
                             break;
                         }
                         break;

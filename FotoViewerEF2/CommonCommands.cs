@@ -20,5 +20,25 @@ namespace FotoViewerEF2
 
             fotoContext.SaveChanges();
         }
+
+        public static void AddNewCity(FotoContext fotoContext)
+        {
+            City city = new City();
+            city.Name = "Новый город";
+            fotoContext.AddCity(city);
+
+            CityWindow window = new CityWindow(fotoContext, city);
+            window.ShowDialog();
+        }
+
+        public static void AddNewPerson(FotoContext fotoContext)
+        {
+            Person person = new Person();
+            person.Name = "Новый персонаж";
+            fotoContext.AddPerson(person);
+
+            PersonWindow window = new PersonWindow(fotoContext, person);
+            window.ShowDialog();
+        }
     }
 }

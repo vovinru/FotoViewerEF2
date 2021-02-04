@@ -29,8 +29,14 @@ namespace ClassLibraryFotoEF
             set;
         }
 
+        public DbSet<Person> Persons
+        {
+            get;
+            set;
+        }
+
         public FotoContext()
-            :base("DBConnection_Test")
+            :base("DBConnection")
         {
             Cities.Load();
         }
@@ -66,6 +72,11 @@ namespace ClassLibraryFotoEF
         public void AddCity(City city)
         {
             Cities.Add(city);
+        }
+
+        public void AddPerson(Person person)
+        {
+            Persons.Add(person);
         }
 
         public List<Foto> GetFotosByFilter(Filter filter)

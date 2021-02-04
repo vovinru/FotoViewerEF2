@@ -45,6 +45,10 @@
                 <MenuItem Header="Перейти к списку стран" Name="menuItemCountryList"
                           Click="menuItemCountryList_Click"></MenuItem>
             </MenuItem>
+            <MenuItem Header="Персонажи">
+                <MenuItem Header="Перейти к списку персонажей" Name="menuItemPersonList"
+                          Click="menuItemPersonList_Click"></MenuItem>
+            </MenuItem>
         </Menu>
 
         <Button Grid.Row="1" Grid.Column="0"
