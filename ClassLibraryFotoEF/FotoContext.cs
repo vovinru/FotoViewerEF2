@@ -36,9 +36,17 @@ namespace ClassLibraryFotoEF
         }
 
         public FotoContext()
-            :base("DBConnection")
+            :base("DBConnection_Test")
         {
+
+            Fotos.Load();
             Cities.Load();
+            Countries.Load();
+            Persons.Load();
+
+            var s = Fotos.Include(f => f.Persons).ToList();
+            var s1 = Persons.Include(p => p.Fotoes).ToList();
+
         }
 
         public Foto GetRandomFoto()
@@ -88,10 +96,9 @@ namespace ClassLibraryFotoEF
             if (!filter.AllCities)
                 fotos.RemoveAll(f => f.CityId != null && !filter.SelectedCities.Any(c => c.CityId == f.CityId));
 
-
             if (!filter.NotCountries)
                 fotos.RemoveAll(f => f.CityId == null);
-            if (!filter.AllCities)
+            if (!filter.AllCountries)
             {
                 for(int i=0; i<fotos.Count;i++)
                 {
@@ -108,7 +115,13 @@ namespace ClassLibraryFotoEF
                 }
             }
 
-            if(!filter.AllDates)
+            if (!filter.NotPersons)
+                fotos.RemoveAll(f => f.Persons.Count == 0 && !f.NotPersons);
+            if (!filter.AllPersons)
+                fotos.RemoveAll(f => (!filter.SelectedPersons.Any(p => f.Persons.Contains(p))) &&
+                                        !(f.Persons.Count==0 && !f.NotPersons));
+
+            if (!filter.AllDates)
             {
                 for (int i = 0; i < fotos.Count; i++)
                 {
@@ -131,6 +144,15 @@ namespace ClassLibraryFotoEF
             fotos.Sort(Foto.EqualsByFileDate);
 
             return fotos;
+        }
+
+        /// <summary>
+        /// Получить все персоны
+        /// </summary>
+        /// <returns></returns>
+        public List<Person> GetPersons()
+        {
+            return Persons.ToList();
         }
 
     }

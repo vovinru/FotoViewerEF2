@@ -100,6 +100,23 @@ namespace ClassLibraryFotoEF
             set;
         }
 
+        /// <summary>
+        /// Свойство показывает что на фото нет людей
+        /// </summary>
+        public bool NotPersons
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Базовый конструктор
+        /// </summary>
+        public Foto()
+        {
+            Persons = new List<Person>();
+            FotoTops = new List<FotoTop>();
+        }
 
         public void CalculateRaiting()
         {

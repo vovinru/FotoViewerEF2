@@ -9,8 +9,13 @@ using System.Threading.Tasks;
 
 namespace FotoViewerEF2
 {
-    public class FotoListWindowViewModel:BaseViewModel
+    public class FotoListWindowViewModel : BaseViewModel
     {
+        //константы для категорий тегов
+        public const string PERSON_TAG_STRING = "Персонажи";
+        //---
+
+        #region propertyes
 
         List<Foto> Fotos
         {
@@ -82,7 +87,7 @@ namespace FotoViewerEF2
             {
                 SelectFoto.City = value;
 
-                foreach(Foto f in GroupFotos)
+                foreach (Foto f in GroupFotos)
                 {
                     f.City = value;
                 }
@@ -108,6 +113,101 @@ namespace FotoViewerEF2
             }
         }
 
+        #region tags_propertyes
+
+        /// <summary>
+        /// Категория тегов которая выбрана в форме для редактирования
+        /// </summary>
+        public string SelectedCategory
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Все категории тегов которые существуют
+        /// </summary>
+        public List<string> Categorys
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Выбираем что по выбранной категории ничего нет (например на фото нет персонажей)
+        /// </summary>
+        public bool NotTag
+        {
+            get
+            {
+                if (SelectedCategory == PERSON_TAG_STRING)
+                    return SelectFoto.NotPersons;
+
+                return false;
+            }
+            set
+            {
+                if (SelectedCategory == PERSON_TAG_STRING)
+                    SelectFoto.NotPersons = value;
+            }
+        }
+
+        /// <summary>
+        /// Теги выбранной категории для выбранного фото
+        /// </summary>
+        public List<object> FotoTags
+        {
+            get
+            {
+                if (SelectedCategory == PERSON_TAG_STRING)
+                {
+                    if (SelectFoto.Persons != null)
+                        return SelectFoto.Persons.Cast<object>().ToList();
+                }
+
+                return new List<object>();
+            }
+        }
+
+        /// <summary>
+        /// Выделенный тег выбранной категории
+        /// </summary>
+        public object SelectFotoTag
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Все варианты тегов для данной категории
+        /// </summary>
+        public List<object> AllTags
+        {
+            get
+            {
+                if (SelectedCategory == PERSON_TAG_STRING)
+                {
+                    if (FotoContext.Persons != null)
+                        return FotoContext.GetPersons().Cast<object>().ToList();
+                }
+
+                return new List<object>();
+            }
+        }
+
+        /// <summary>
+        /// Выденный тег, из всех моделей
+        /// </summary>
+        public object SelectOtherTag
+        {
+            get;
+            set;
+        }
+
+        #endregion
+
+        #endregion
+
         public FotoListWindowViewModel(FotoContext fotoContext, List<Foto> fotos, Foto selectedFoto) :
             base(fotoContext)
         {
@@ -123,7 +223,17 @@ namespace FotoViewerEF2
 
             GroupFotos = new List<Foto>();
             CreateGroup = false;
+
+            ///Заполняем теги
+
+            Categorys = new List<string> { PERSON_TAG_STRING };
+            SelectedCategory = PERSON_TAG_STRING;
+
+            ///--
+
         }
+
+        #region methods
 
         public void ShiftLeft()
         {
@@ -161,10 +271,10 @@ namespace FotoViewerEF2
         {
             List<FotoSaveTopJSON> fotosJson = new List<FotoSaveTopJSON>();
 
-            for(int i=0; i<100; i++)
+            for (int i = 0; i < 100; i++)
             {
                 Foto foto = Fotos[i];
-                File.Copy(foto.FileName, string.Format("TOP/{0}.jpg", i+1));
+                File.Copy(foto.FileName, string.Format("TOP/{0}.jpg", i + 1));
 
                 FotoSaveTopJSON fotoJson = new FotoSaveTopJSON();
                 fotoJson.Place = i + 1;
@@ -178,12 +288,41 @@ namespace FotoViewerEF2
 
             //Сохранение в json
             string json = JsonConvert.SerializeObject(fotosJson);
-            
-            using(StreamWriter file = new StreamWriter("TOP/top.json"))
+
+            using (StreamWriter file = new StreamWriter("TOP/top.json"))
             {
                 file.Write(json);
             }
         }
+
+        #region tags methods
+
+        /// <summary>
+        /// Добавляем тег к фотографии
+        /// </summary>
+        public void AddSelectedTag()
+        {
+            if(SelectOtherTag != null)
+            {
+                SelectFoto.Persons.Add((Person)SelectOtherTag);
+            }
+        }
+
+        /// <summary>
+        /// Удаление выбранного тега с фото
+        /// </summary>
+        public void DeleteSelectedTag()
+        {
+            if (SelectFotoTag != null)
+            {
+                SelectFoto.Persons.Remove((Person)SelectFotoTag);
+            }
+        }
+
+        #endregion
+
+        #endregion
+
 
     }
 }

@@ -61,9 +61,36 @@ namespace ClassLibraryFotoEF
         }
 
         /// <summary>
-        /// Выбранные города
+        /// Выбранные страны
         /// </summary>
         public List<Country> SelectedCountries
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Флаг о том что выбираем все города
+        /// </summary>
+        public bool AllPersons
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Флаг о том что выбираем фото без персонажей
+        /// </summary>
+        public bool NotPersons
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Выбранные персонажи
+        /// </summary>
+        public List<Person> SelectedPersons
         {
             get;
             set;
@@ -109,6 +136,10 @@ namespace ClassLibraryFotoEF
             AllCountries = true;
             NotCountries = true;
             SelectedCountries = new List<Country>();
+
+            AllPersons = true;
+            NotPersons = true;
+            SelectedPersons = new List<Person>();
 
             AllDates = true;
             DateStart = new DateTime();

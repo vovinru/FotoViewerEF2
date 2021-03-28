@@ -19,6 +19,11 @@ namespace FotoViewerEF2
         public bool _notCountries = true;
         public List<Country> _selectedCountries = new List<Country>();
 
+
+        public bool _allPersons = true;
+        public bool _notPersons = true;
+        public List<Person> _selectedPersons = new List<Person>();
+
         #endregion
 
         #region properties
@@ -172,6 +177,80 @@ namespace FotoViewerEF2
         }
 
         /// <summary>
+        /// Флаг о том что выбираем все персонажи
+        /// </summary>
+        public bool AllPersons
+        {
+            get
+            {
+                if (_selectedPersons.Count > 0)
+                    _allPersons = false;
+                return _allPersons;
+            }
+            set
+            {
+                if (value)
+                    _selectedPersons.Clear();
+
+                _allPersons = value;
+            }
+        }
+
+        /// <summary>
+        /// Флаг о том что выбираем фото без городов
+        /// </summary>
+        public bool NotPersons
+        {
+            get
+            {
+                return _notPersons;
+            }
+            set
+            {
+                _notPersons = value;
+            }
+        }
+
+        /// <summary>
+        /// Выбранные города
+        /// </summary>
+        public List<Person> SelectedPersons
+        {
+            get
+            {
+                return _selectedPersons;
+            }
+            set
+            {
+                _selectedPersons = value;
+            }
+        }
+
+
+        /// <summary>
+        /// описание настройки городов
+        /// </summary>
+        public string SelectedPersonsText
+        {
+            get
+            {
+                string ret = string.Empty;
+
+                if (SelectedPersons != null && SelectedPersons.Count > 0)
+                {
+                    SelectedPersons.ForEach(c => ret += c.Name + " ");
+                }
+
+                if (AllPersons)
+                    ret = "Показываем все города";
+                if (NotPersons)
+                    ret += "Показываем фото без городов";
+
+                return ret;
+            }
+        }
+
+        /// <summary>
         /// Любые даты
         /// </summary>
         public bool AllDates
@@ -241,6 +320,10 @@ namespace FotoViewerEF2
             filter.AllCountries = AllCountries;
             filter.NotCountries = NotCountries;
             filter.SelectedCountries = SelectedCountries;
+
+            filter.AllPersons = AllPersons;
+            filter.NotPersons = NotPersons;
+            filter.SelectedPersons = SelectedPersons;
 
             filter.AllDates = AllDates;
             filter.DateStart = DateStart;

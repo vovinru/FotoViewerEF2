@@ -95,6 +95,10 @@
     <Compile Include="Migrations\202101310820288_AddPerson.designer.cs">
       <DependentUpon>202101310820288_AddPerson.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103281516576_AddNotPersonToFoto.cs" />
+    <Compile Include="Migrations\202103281516576_AddNotPersonToFoto.designer.cs">
+      <DependentUpon>202103281516576_AddNotPersonToFoto.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -131,6 +135,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101310820288_AddPerson.resx">
       <DependentUpon>202101310820288_AddPerson.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103281516576_AddNotPersonToFoto.resx">
+      <DependentUpon>202103281516576_AddNotPersonToFoto.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

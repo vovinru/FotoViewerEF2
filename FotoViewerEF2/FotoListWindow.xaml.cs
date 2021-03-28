@@ -82,5 +82,16 @@ namespace FotoViewerEF2
                 RightClick();
             }
         }
+
+        private void buttonAdd_Click(object sender, RoutedEventArgs e)
+        {
+            ((FotoListWindowViewModel)_viewModel).AddSelectedTag();
+            UpdateViewModel();
+        }
+        private void buttonCancel_Click(object sender, RoutedEventArgs e)
+        {
+            ((FotoListWindowViewModel)_viewModel).DeleteSelectedTag();
+            UpdateViewModel();
+        }
     }
 }

@@ -12,6 +12,7 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
 
@@ -74,7 +75,36 @@
 
         </Grid>
 
-        <Grid Grid.Row="2" Name="gridDates">
+        <Grid Grid.Row="2" Name="gridPersons">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0" Content="Персонажи"></Label>
+
+            <Grid Grid.Column="1" Name="gridCheckBoxesPersons">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <CheckBox Grid.Row="0" Content="Выбрать все страны" IsChecked="{Binding AllPersons}"></CheckBox>
+                <CheckBox Grid.Row="1" Content="Выбрать без страны" IsChecked="{Binding NotPersons}"></CheckBox>
+            </Grid>
+
+
+            <Label Grid.Column="2" Content="{Binding SelectedPersonsText}"></Label>
+            <Button Grid.Column="3" Name="buttonChoicePersons" Content="Выбрать персонажей"
+                    Click="buttonChoicePersons_Click"></Button>
+
+        </Grid>
+
+        <Grid Grid.Row="3" Name="gridDates">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
@@ -94,7 +124,7 @@
             
         </Grid>
 
-        <Grid Grid.Row="3" Name="gridButtons">
+        <Grid Grid.Row="4" Name="gridButtons">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:FotoViewerEF2"
         mc:Ignorable="d"
         KeyDown="Window_KeyDown"
-        Title="Фотографии" Height="600" Width="800">
+        Title="Фотографии" Height="800" Width="800">
     
     <Grid>
 
@@ -45,6 +45,7 @@
                     <RowDefinition Height="30"></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
@@ -53,6 +54,51 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
+
+                <Grid x:Name="gridTags" Grid.Row="2" Grid.ColumnSpan="4">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0"
+                           Content="Категория"></Label>
+                    <ComboBox Grid.Row="0" Grid.Column="1"
+                              SelectedItem="{Binding SelectedCategory}"
+                              ItemsSource="{Binding Categorys}"></ComboBox>
+
+                    <Label Grid.Row="1" Content="Выбрано:"></Label>
+
+                    <CheckBox Grid.Row="2" Content="Нет тега" VerticalAlignment="Center"
+                              IsChecked="{Binding NotTag}"></CheckBox>
+
+                    <ListBox Grid.Row="3" Grid.ColumnSpan="2"
+                             ItemsSource="{Binding FotoTags}"
+                             SelectedItem="{Binding SelectFotoTag}"></ListBox>
+
+                    <Button Name="buttonAdd" Grid.Row="4" Grid.Column="0"
+                            Content="Добавить" Click="buttonAdd_Click"></Button>
+                    <Button Name="buttonCancel" Grid.Row="4" Grid.Column="1"
+                            Content="Отмена" Click="buttonCancel_Click"></Button>
+
+                    <Label Grid.Row="5" Content="Все:"></Label>
+
+                    <ListBox Grid.Row="6" Grid.ColumnSpan="2"
+                             ItemsSource="{Binding AllTags}"
+                             SelectedItem="{Binding SelectOtherTag}"></ListBox>
+
+                </Grid>
 
                 <Label Grid.Row="0" Grid.Column="0" Content="Город"></Label>
                 <ComboBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
@@ -63,8 +109,8 @@
                 <Label Grid.Row="1" Grid.Column="0" Content="Страна"></Label>
                 <Label Grid.Row="1" Grid.Column="1" Content="{Binding SelectCountry}"></Label>
 
-                <Button Grid.Row="3" Grid.ColumnSpan="2" Content="Сохранить 100" Name="Save100" Click="Save100_Click"></Button>
-                <CheckBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2"
+                <Button Grid.Row="4" Grid.ColumnSpan="2" Content="Сохранить 100" Name="Save100" Click="Save100_Click"></Button>
+                <CheckBox Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2"
                           IsChecked="{Binding CreateGroup}" Content="Группирование"></CheckBox>
 
             </Grid>

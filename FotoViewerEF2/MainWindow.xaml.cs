@@ -145,7 +145,7 @@ namespace FotoViewerEF2
                 List<Foto> fotos = _viewModel.FotoContext.GetFotosByFilter(filter);
 
                 FotoListWindow windowList = new FotoListWindow(_viewModel.FotoContext,
-                fotos, fotos.First());
+                    fotos, fotos.First());
 
                 windowList.ShowDialog();
                 UpdateViewModel();

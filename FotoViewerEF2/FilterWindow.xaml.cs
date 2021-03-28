@@ -73,5 +73,14 @@ namespace FotoViewerEF2
             this.Close();
         }
 
+        private void buttonChoicePersons_Click(object sender, RoutedEventArgs e)
+        {
+            CheckListWindow window = new CheckListWindow(_viewModel.FotoContext, _viewModel.FotoContext.Persons.ToList<object>());
+            if (window.ShowDialog() == true)
+            {
+                ViewModel.SelectedPersons = window.GetSelectedItems().Cast<Person>().ToList();
+                UpdateViewModel();
+            }
+        }
     }
 }
