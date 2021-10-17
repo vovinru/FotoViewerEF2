@@ -3,3 +3,6 @@
 ################################################################################
 
 /FotoViewerEF2/obj/Release
+/FotoViewerEF2/obj/Debug
+/ClassLibraryFotoEF/obj
+/.vs
