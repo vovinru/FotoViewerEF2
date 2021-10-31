@@ -36,7 +36,7 @@ namespace ClassLibraryFotoEF
         }
 
         public FotoContext()
-            :base("DBConnection_Test")
+            :base("DBConnection_2")
         {
 
             Fotos.Load();
@@ -44,15 +44,19 @@ namespace ClassLibraryFotoEF
             Countries.Load();
             Persons.Load();
 
-            var s = Fotos.Include(f => f.Persons).ToList();
-            var s1 = Persons.Include(p => p.Fotoes).ToList();
+            Fotos.Include(f => f.Persons).ToList();
+            Persons.Include(p => p.Fotoes).ToList();
 
         }
 
-        public Foto GetRandomFoto()
+        public Foto GetRandomFoto(bool notGame = false)
         {
             if (Fotos.Count() > 1)
             {
+                if(notGame)
+                {
+                    return Fotos.OrderBy(f => Guid.NewGuid()).First(f => f.CountLose + f.CountWin == 0);
+                }    
                 return Fotos.OrderBy(f => Guid.NewGuid()).Take(1).First();
             }
 

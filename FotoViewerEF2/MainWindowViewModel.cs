@@ -144,11 +144,14 @@ namespace FotoViewerEF2
 
         public void LoadFoto()
         {
+            int newCount = FotoContext.Fotos.Count(f => f.CountWin + f.CountLose == 0);
+            bool newFoto = newCount > 0;
+
             Foto foto1 = null;
 
             while(foto1 == null)
             {
-                foto1 = FotoContext.GetRandomFoto();
+                foto1 = FotoContext.GetRandomFoto(newFoto);
 
                 if (foto1 == null)
                     return;
@@ -157,6 +160,7 @@ namespace FotoViewerEF2
                 {
                     foto1.CountPenalty--;
                     foto1 = null;
+                    continue;
                 }
             }
 
