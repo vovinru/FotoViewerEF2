@@ -140,6 +140,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition Width="40"></ColumnDefinition>
+                <ColumnDefinition Width="40"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
             <Button Grid.Row="0" Grid.Column="0"
@@ -150,12 +151,17 @@
                 Name="buttonRotateFoto1" Content="R"
                     Click="buttonRotateFoto1_Click"></Button>
 
+            <Button Grid.Row="0" Grid.Column="2"
+                    Name="buttonDeleteFoto1" Content="D"
+                    Click="buttonDeleteFoto1_Click"></Button>
+
         </Grid>
 
         <Grid Grid.Row="4" Grid.Column="1" Name="gridButtons2">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="40"></ColumnDefinition>
                 <ColumnDefinition Width="40"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
@@ -166,6 +172,10 @@
             <Button Grid.Row="0" Grid.Column="1"
                 Name="buttonRotateFoto2" Content="R"
                 Click="buttonRotateFoto2_Click"></Button>
+
+            <Button Grid.Row="0" Grid.Column="2"
+                Name="buttonDeleteFoto2" Content="D"
+                Click="buttonDeleteFoto2_Click"></Button>
 
         </Grid>
 

@@ -197,6 +197,7 @@ namespace FotoViewerEF2
             CountWithoutGame = FotoContext.Fotos.Count(f => f.CountWin + f.CountLose == 0);
             CountWithoutLose = FotoContext.Fotos.Count(f => f.CountLose == 0);
             Count0Penalty = FotoContext.Fotos.Count(f => f.CountPenalty == 0);
+            CountFoto = FotoContext.Fotos.Count();
         }
 
         public void AddFotoFolder(string directory)
@@ -264,6 +265,28 @@ namespace FotoViewerEF2
             Foto2.Rotate += 90;
             if (Foto2.Rotate >= 360)
                 Foto2.Rotate = 0;
+        }
+
+        public void DeleteFoto1()
+        {
+            if (Foto1 != null)
+            {
+                FotoContext.DeleteFoto(Foto1);
+            }
+
+            LoadFoto();
+            FotoContext.SaveChanges();
+        }
+
+        public void DeleteFoto2()
+        {
+            if (Foto2 != null)
+            {
+                FotoContext.DeleteFoto(Foto2);
+            }
+
+            LoadFoto();
+            FotoContext.SaveChanges();
         }
 
         #endregion

@@ -158,5 +158,25 @@ namespace FotoViewerEF2
             ListWindow window = new ListWindow(_viewModel.FotoContext, FotoListType.Person);
             window.ShowDialog();
         }
+
+        private void buttonDeleteFoto1_Click(object sender, RoutedEventArgs e)
+        {
+            if (System.Windows.Forms.MessageBox.Show("Вы действительно хотите удалить Фото1?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+                == System.Windows.Forms.DialogResult.Yes)
+            {
+                ViewModel.DeleteFoto1();
+                UpdateViewModel();
+            }
+        }
+
+        private void buttonDeleteFoto2_Click(object sender, RoutedEventArgs e)
+        {
+            if (System.Windows.Forms.MessageBox.Show("Вы действительно хотите удалить Фото1?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+                == System.Windows.Forms.DialogResult.Yes)
+            {
+                ViewModel.DeleteFoto2();
+                UpdateViewModel();
+            }
+        }
     }
 }

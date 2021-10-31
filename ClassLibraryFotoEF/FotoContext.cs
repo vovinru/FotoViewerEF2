@@ -36,6 +36,7 @@ namespace ClassLibraryFotoEF
         }
 
         public FotoContext()
+            //:base("DBConnection_Test")
             :base("DBConnection_2")
         {
 
@@ -157,6 +158,16 @@ namespace ClassLibraryFotoEF
         public List<Person> GetPersons()
         {
             return Persons.ToList();
+        }
+
+        //Удаляем фото из бд
+        public void DeleteFoto(Foto foto)
+        {
+            if (foto.City != null)
+                foto.City.Fotoes.Remove(foto);
+            foto.Persons.All(p => p.Fotoes.Remove(foto));
+
+            Fotos.Remove(foto);
         }
 
     }
