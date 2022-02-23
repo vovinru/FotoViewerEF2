@@ -147,29 +147,65 @@ namespace FotoViewerEF2
             int newCount = FotoContext.Fotos.Count(f => f.CountWin + f.CountLose == 0);
             bool newFoto = newCount > 0;
 
+            Count0Penalty = FotoContext.Fotos.Count(f => f.CountPenalty == 0);
+
             Foto foto1 = null;
+
+            int attempt = 0;
+            int sizeBlock = 50;
+            List<Foto> fotoBlock = new List<Foto>();
+            int i = 0;
 
             while(foto1 == null)
             {
-                foto1 = FotoContext.GetRandomFoto(newFoto);
+                if (fotoBlock.Count == i)
+                {
+                    fotoBlock = FotoContext.GetRandomFotos(newFoto, sizeBlock);
+                    i = 0;
+                }
+
+                foto1 = fotoBlock[i];
+
+                if(!File.Exists(foto1.FileName))
+                {
+                    FotoContext.DeleteFoto(foto1);
+                    continue;
+                }
 
                 if (foto1 == null)
                     return;
 
                 if(foto1.CountPenalty != 0)
                 {
-                    foto1.CountPenalty--;
+                    foto1.CountPenalty -= Math.Min((1 + attempt / 5), foto1.CountPenalty);
                     foto1 = null;
+                    attempt++;
                     continue;
                 }
             }
 
             Foto foto2 = null;
+            fotoBlock = new List<Foto>();
+            i = 0;
 
             while(foto2 == null)
             {
-                foto2 = FotoContext.GetRandomFoto();
-                if(foto1 == foto2)
+                if (fotoBlock.Count == i)
+                {
+                    fotoBlock = FotoContext.GetRandomFotos(false, sizeBlock);
+                    i = 0;
+                }
+
+                foto2 = fotoBlock[i];
+
+
+                if (!File.Exists(foto2.FileName))
+                {
+                    FotoContext.DeleteFoto(foto2);
+                    continue;
+                }
+
+                if (foto1 == foto2)
                 {
                     foto2 = null;
                     continue;
@@ -177,8 +213,9 @@ namespace FotoViewerEF2
 
                 if(foto2.CountPenalty != 0)
                 {
-                    foto2.CountPenalty--;
+                    foto2.CountPenalty -= Math.Min((1 + attempt / 5), foto2.CountPenalty);
                     foto2 = null;
+                    attempt++;
                 }
             }
 
@@ -196,7 +233,6 @@ namespace FotoViewerEF2
 
             CountWithoutGame = FotoContext.Fotos.Count(f => f.CountWin + f.CountLose == 0);
             CountWithoutLose = FotoContext.Fotos.Count(f => f.CountLose == 0);
-            Count0Penalty = FotoContext.Fotos.Count(f => f.CountPenalty == 0);
             CountFoto = FotoContext.Fotos.Count();
         }
 
@@ -227,7 +263,7 @@ namespace FotoViewerEF2
             {
                 Foto1.CountWin++;
                 Foto2.CountLose++;
-                Foto2.CountPenalty = MathFotoEF.Fibonachi(Foto2.CountLose) + 30;
+                Foto2.CountPenalty = MathFotoEF.Fibonachi(Foto2.CountLose) + FotoContext.GetBasePenalty(Count0Penalty);
 
                 CountGameNow++;
             }
@@ -243,7 +279,7 @@ namespace FotoViewerEF2
             {
                 Foto2.CountWin++;
                 Foto1.CountLose++;
-                Foto1.CountPenalty = MathFotoEF.Fibonachi(Foto1.CountLose) + 30;
+                Foto1.CountPenalty = MathFotoEF.Fibonachi(Foto1.CountLose) + FotoContext.GetBasePenalty(Count0Penalty);
 
                 CountGameNow++;
             }

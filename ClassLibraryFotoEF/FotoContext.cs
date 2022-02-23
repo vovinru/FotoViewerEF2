@@ -50,15 +50,21 @@ namespace ClassLibraryFotoEF
 
         }
 
-        public Foto GetRandomFoto(bool notGame = false)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="notGame"></param>
+        /// <param name="count">количество фото (если notGame = true) то всегда 1</param>
+        /// <returns></returns>
+        public List<Foto> GetRandomFotos(bool notGame = false, int count = 1)
         {
             if (Fotos.Count() > 1)
             {
                 if(notGame)
                 {
-                    return Fotos.OrderBy(f => Guid.NewGuid()).First(f => f.CountLose + f.CountWin == 0);
+                    return new List<Foto> { Fotos.OrderBy(f => Guid.NewGuid()).First(f => f.CountLose + f.CountWin == 0) };
                 }    
-                return Fotos.OrderBy(f => Guid.NewGuid()).Take(1).First();
+                return Fotos.OrderBy(f => Guid.NewGuid()).Take(count).ToList();
             }
 
             return null;
@@ -168,6 +174,19 @@ namespace ClassLibraryFotoEF
             foto.Persons.All(p => p.Fotoes.Remove(foto));
 
             Fotos.Remove(foto);
+        }
+
+        /// <summary>
+        /// Получить текущий базовый штраф
+        /// </summary>
+        /// <returns></returns>
+        public int GetBasePenalty(int countFoto0Penalty)
+        {
+            if (countFoto0Penalty < 512)
+                return 0;
+
+            else
+                return (countFoto0Penalty - 512) / 100;
         }
 
     }
