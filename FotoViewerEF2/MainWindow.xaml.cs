@@ -138,18 +138,28 @@ namespace FotoViewerEF2
         private void menuItemFilter_Click(object sender, RoutedEventArgs e)
         {
             WindowFilter window = new WindowFilter(_viewModel.FotoContext);
+            window.ShowDialog();
 
-            if(window.ShowDialog() == true)
+            if (window.ResultWindow != ResultWindowFilter.close)
             {
+
                 Filter filter = window.GetFilter();
                 List<Foto> fotos = _viewModel.FotoContext.GetFotosByFilter(filter);
 
-                FotoListWindow windowList = new FotoListWindow(_viewModel.FotoContext,
-                    fotos, fotos.First());
+                if (window.ResultWindow == ResultWindowFilter.show)
+                {
+                    FotoListWindow windowList = new FotoListWindow(_viewModel.FotoContext,
+                        fotos, fotos.First());
 
-                windowList.ShowDialog();
+                    windowList.ShowDialog();
+                }
+
+                if (window.ResultWindow == ResultWindowFilter.updateMain)
+                {
+                    ViewModel.FotosFilter = fotos;
+                }
+
                 UpdateViewModel();
-
             }
         }
 

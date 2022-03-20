@@ -152,6 +152,16 @@ namespace ClassLibraryFotoEF
                 }
             }
 
+            for(int i=0; i<fotos.Count;i++)
+            {
+                if(!File.Exists(fotos[i].FileName))
+                {
+                    DeleteFoto(fotos[i]);
+                    fotos.Remove(fotos[i]);
+                    i--;
+                }
+            }
+
             fotos.Sort(Foto.EqualsByFileDate);
 
             return fotos;

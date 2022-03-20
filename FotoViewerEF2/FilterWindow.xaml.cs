@@ -15,17 +15,29 @@ using System.Windows.Shapes;
 
 namespace FotoViewerEF2
 {
+    public enum ResultWindowFilter
+    {
+        show, updateMain, close
+    }
+
     /// <summary>
     /// Логика взаимодействия для WindowFilter.xaml
     /// </summary>
     public partial class WindowFilter : BaseWindow
     {
+
         public FilterWindowViewModel ViewModel
         {
             get
             {
                 return (FilterWindowViewModel)_viewModel;
             }
+        }
+
+        public ResultWindowFilter ResultWindow
+        {
+            get;
+            set;
         }
 
 
@@ -63,13 +75,19 @@ namespace FotoViewerEF2
 
         private void buttonShow_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = true;
+            ResultWindow = ResultWindowFilter.show;
+            this.Close();
+        }
+
+        private void buttonUpdateMainFilter_Click(object sender, RoutedEventArgs e)
+        {
+            ResultWindow = ResultWindowFilter.updateMain;
             this.Close();
         }
 
         private void buttonCancel_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = false;
+            ResultWindow = ResultWindowFilter.close;
             this.Close();
         }
 
