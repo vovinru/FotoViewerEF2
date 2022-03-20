@@ -277,7 +277,8 @@ namespace FotoViewerEF2
             foreach (string dir in directories)
                 AddFotoFolder(dir);
 
-            string[] files = Directory.GetFiles(directory, "*.jpg");
+            List<string> files = Directory.GetFiles(directory, "*.*").
+                Where(s => s.EndsWith(".jpg") || s.EndsWith(".jpeg") || s.EndsWith(".jfif")).ToList();
 
             foreach(string file in files)
             {
