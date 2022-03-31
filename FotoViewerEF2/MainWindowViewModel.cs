@@ -164,63 +164,49 @@ namespace FotoViewerEF2
 
             int attempt = 0;
             Random random = new Random();
-            //int sizeBlock = 50;
-            //List<Foto> fotoBlock = new List<Foto>();
-            //int i = 0;
 
             while(foto1 == null)
             {
-                //if (fotoBlock.Count == i)
-                //{
-                //    fotoBlock = FotoContext.GetRandomFotos(newFoto, sizeBlock);
-                //    i = 0;
-                //}
-
-                int index = random.Next(0, FotosFilter.Count - 1);
-                foto1 = FotosFilter[index]; // fotoBlock[i];
-
-                if(!File.Exists(foto1.FileName))
+                //Если есть фото которые не играли, они должны сыграть
+                if (newCount > 0)
                 {
-                    FotoContext.DeleteFoto(foto1);
-                    FotosFilter.Remove(foto1);
-                    foto1 = null;
-                    //i++;
-                    continue;
+                    List<Foto> FotosNew = FotosFilter.FindAll(f => f.CountLose + f.CountWin == 0);
+                    int index = random.Next(0, FotosNew.Count - 1);
+                    foto1 = FotosNew[index];
                 }
-
-                if (foto1 == null)
-                    return;
-
-                if(foto1.CountPenalty != 0)
+                else
                 {
-                    foto1.CountPenalty -= Math.Min((1 + attempt / 50), foto1.CountPenalty);
-                    //fotoBlock.Remove(foto1);
-                    foto1 = null;
-                    attempt++;
-                    continue;
-                }
+                    int index = random.Next(0, FotosFilter.Count - 1);
+                    foto1 = FotosFilter[index];
 
-                //if (foto1 != null && !foto1.CheckFile())
-                //{
-                //    FotoContext.DeleteFoto(foto1);
-                //    foto1 = null;
-                //}
+                    if (!File.Exists(foto1.FileName))
+                    {
+                        FotoContext.DeleteFoto(foto1);
+                        FotosFilter.Remove(foto1);
+                        foto1 = null;
+                        continue;
+                    }
+
+                    if (foto1 == null)
+                        return;
+
+                    if (foto1.CountPenalty != 0)
+                    {
+                        foto1.CountPenalty -= Math.Min((1 + attempt / 50), foto1.CountPenalty);
+                        foto1 = null;
+                        attempt++;
+                        continue;
+                    }
+                }
             }
 
             Foto foto2 = null;
-            //fotoBlock = new List<Foto>();
-            //i = 0;
 
             while(foto2 == null)
             {
-                //if (fotoBlock.Count == i)
-                //{
-                //    fotoBlock = FotoContext.GetRandomFotos(false, sizeBlock);
-                //    i = 0;
-                //}
 
                 int index = random.Next(0, FotosFilter.Count - 1);
-                foto2 = FotosFilter[index];// fotoBlock[i];
+                foto2 = FotosFilter[index];
 
 
                 if (!File.Exists(foto2.FileName))
@@ -228,7 +214,6 @@ namespace FotoViewerEF2
                     FotoContext.DeleteFoto(foto2);
                     FotosFilter.Remove(foto2);
                     foto2 = null;
-                    //i++;
                     continue;
                 }
 
@@ -245,12 +230,6 @@ namespace FotoViewerEF2
                     foto2 = null;
                     attempt++;
                 }
-
-                //if (foto2 != null && !foto2.CheckFile())
-                //{
-                //    FotoContext.DeleteFoto(foto2);
-                //    foto2 = null;
-                //}
             }
 
             Foto1 = foto1;
@@ -278,7 +257,7 @@ namespace FotoViewerEF2
                 AddFotoFolder(dir);
 
             List<string> files = Directory.GetFiles(directory, "*.*").
-                Where(s => s.EndsWith(".jpg") || s.EndsWith(".jpeg") || s.EndsWith(".jfif")).ToList();
+                Where(s => s.EndsWith(".jpg") || s.EndsWith(".JPG") || s.EndsWith(".jpeg") || s.EndsWith(".jfif")).ToList();
 
             foreach(string file in files)
             {
