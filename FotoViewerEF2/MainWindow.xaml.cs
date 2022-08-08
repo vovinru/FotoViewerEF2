@@ -188,5 +188,10 @@ namespace FotoViewerEF2
                 UpdateViewModel();
             }
         }
+
+        private void menuItemPenaltyReport_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show(ViewModel.FotoContext.GetPenaltyReport());
+        }
     }
 }

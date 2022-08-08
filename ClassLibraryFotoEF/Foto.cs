@@ -166,5 +166,10 @@ namespace ClassLibraryFotoEF
 
             return 0;
         }
+
+        public static int EqualsByFileName(Foto f1, Foto f2)
+        {
+            return String.Compare(f1.FileName, f2.FileName);
+        }
     }
 }

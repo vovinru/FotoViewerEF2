@@ -162,7 +162,7 @@ namespace ClassLibraryFotoEF
                 }
             }
 
-            fotos.Sort(Foto.EqualsByFileDate);
+            fotos.Sort(Foto.EqualsByFileName);
 
             return fotos;
         }
@@ -196,7 +196,56 @@ namespace ClassLibraryFotoEF
                 return 0;
 
             else
-                return (countFoto0Penalty - 512) / 100;
+                return (countFoto0Penalty - 512) / 25;
+        }
+
+        public string GetPenaltyReport()
+        {
+            string result = string.Empty;
+
+            Dictionary<int, int> penalties = new Dictionary<int, int>();
+
+            int maxPenalty = 0;
+
+            foreach(Foto foto in Fotos)
+            {
+                if (!penalties.ContainsKey(foto.CountPenalty))
+                {
+                    penalties.Add(foto.CountPenalty, 0);
+                    maxPenalty = Math.Max(maxPenalty, foto.CountPenalty);
+                }
+
+                penalties[foto.CountPenalty]++;
+            }
+
+            int sumPenaltyUndoSpace = 0;
+            int sumPenalty = 0;
+            bool space = false;
+
+            for (int i = 0; i < maxPenalty; i++)
+            {
+                if (penalties.ContainsKey(i))
+                {
+                    if (!space)
+                        sumPenaltyUndoSpace += penalties[i] * i;
+                    sumPenalty += penalties[i] * i;
+                }
+                else
+                    space = true;
+            }
+
+            result += String.Format("Штраф до пробела: {0}\n", sumPenaltyUndoSpace);
+            result += String.Format("Общий штраф: {0}\n\n", sumPenalty);
+
+            for (int i = 0; i < maxPenalty; i++)
+            {
+                if (penalties.ContainsKey(i))
+                {
+                    result += String.Format("{0} - {1};\n", i, penalties[i]);
+                }
+            }
+
+            return result;
         }
 
     }

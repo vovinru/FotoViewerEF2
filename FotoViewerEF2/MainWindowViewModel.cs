@@ -192,7 +192,7 @@ namespace FotoViewerEF2
 
                     if (foto1.CountPenalty != 0)
                     {
-                        foto1.CountPenalty -= Math.Min((1 + attempt / 50), foto1.CountPenalty);
+                        foto1.CountPenalty -= Math.Min((1 + attempt / 10000), foto1.CountPenalty);
                         foto1 = null;
                         attempt++;
                         continue;
@@ -225,7 +225,7 @@ namespace FotoViewerEF2
 
                 if(foto2.CountPenalty != 0)
                 {
-                    foto2.CountPenalty -= Math.Min((1 + attempt / 50), foto2.CountPenalty);
+                    foto2.CountPenalty -= Math.Min((1 + attempt / 10000), foto2.CountPenalty);
                     //fotoBlock.Remove(foto2);
                     foto2 = null;
                     attempt++;
