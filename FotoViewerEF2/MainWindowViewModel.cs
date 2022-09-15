@@ -17,6 +17,32 @@ namespace FotoViewerEF2
 
         #region propertyes
 
+        //parameters for fotos
+        /// <summary>
+        /// Параметр включает режим работы с победителями. Фотография победившая попадает в топ20, 
+        /// если в наборе уже 20 фото, то 1й фоткой будет один из бывших победителей
+        /// </summary>
+        public bool Top20
+        {
+            get;
+            set;
+        }
+
+        //---
+
+        //meta data for foto
+
+        /// <summary>
+        /// Набор свежих победителей
+        /// </summary>
+        List<Foto> Top20Winners
+        {
+            get;
+            set;
+        }
+
+        //---
+
 
         public Foto Foto1
         {
@@ -147,6 +173,9 @@ namespace FotoViewerEF2
 
             CountFoto = FotoContext.Fotos.Count();
             CountGameNow = 0;
+
+            Top20 = true;
+            Top20Winners = new List<Foto>();
         }
 
         #endregion
@@ -170,32 +199,43 @@ namespace FotoViewerEF2
                 //Если есть фото которые не играли, они должны сыграть
                 if (newCount > 0)
                 {
+                    Top20Winners.Clear();
+
                     List<Foto> FotosNew = FotosFilter.FindAll(f => f.CountLose + f.CountWin == 0);
                     int index = random.Next(0, FotosNew.Count - 1);
                     foto1 = FotosNew[index];
                 }
                 else
                 {
-                    int index = random.Next(0, FotosFilter.Count - 1);
-                    foto1 = FotosFilter[index];
-
-                    if (!File.Exists(foto1.FileName))
+                    if (Top20 && Top20Winners.Count == 20)
                     {
-                        FotoContext.DeleteFoto(foto1);
-                        FotosFilter.Remove(foto1);
-                        foto1 = null;
-                        continue;
+                        foto1 = Top20Winners.First();
+                        Top20Winners.RemoveAt(0);
                     }
 
-                    if (foto1 == null)
-                        return;
-
-                    if (foto1.CountPenalty != 0)
+                    else
                     {
-                        foto1.CountPenalty -= Math.Min((1 + attempt / 10000), foto1.CountPenalty);
-                        foto1 = null;
-                        attempt++;
-                        continue;
+                        int index = random.Next(0, FotosFilter.Count - 1);
+                        foto1 = FotosFilter[index];
+
+                        if (!File.Exists(foto1.FileName))
+                        {
+                            FotoContext.DeleteFoto(foto1);
+                            FotosFilter.Remove(foto1);
+                            foto1 = null;
+                            continue;
+                        }
+
+                        if (foto1 == null)
+                            return;
+
+                        if (foto1.CountPenalty != 0)
+                        {
+                            foto1.CountPenalty -= Math.Min((1 + attempt / 10000), foto1.CountPenalty);
+                            foto1 = null;
+                            attempt++;
+                            continue;
+                        }
                     }
                 }
             }
@@ -280,6 +320,11 @@ namespace FotoViewerEF2
                 Foto2.CountPenalty = MathFotoEF.Fibonachi(Foto2.CountLose) + FotoContext.GetBasePenalty(Count0Penalty);
 
                 CountGameNow++;
+
+                if (Top20)
+                {
+                    Top20Winners.Add(Foto1);
+                }
             }
 
             LoadFoto();
@@ -296,6 +341,14 @@ namespace FotoViewerEF2
                 Foto1.CountPenalty = MathFotoEF.Fibonachi(Foto1.CountLose) + FotoContext.GetBasePenalty(Count0Penalty);
 
                 CountGameNow++;
+
+
+                if (Top20)
+                {
+                    Top20Winners.Add(Foto2);
+                    if (Top20Winners.Count == 20)
+                        Top20Winners.RemoveAt(0);
+                }
             }
 
             LoadFoto();
