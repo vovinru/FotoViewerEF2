@@ -167,6 +167,11 @@ namespace FotoViewerEF2
             foreach (Foto f in FotoContext.Fotos)
                 f.Date = null;
 
+
+
+            Top20 = true;
+            Top20Winners = new List<Foto>();
+
             FotosFilter = FotoContext.GetFotosByFilter(new Filter());
 
             LoadFoto();
@@ -174,8 +179,6 @@ namespace FotoViewerEF2
             CountFoto = FotoContext.Fotos.Count();
             CountGameNow = 0;
 
-            Top20 = true;
-            Top20Winners = new List<Foto>();
         }
 
         #endregion
