@@ -113,6 +113,14 @@ namespace FotoViewerEF2
             }
         }
 
+        public int FotoAngle
+        {
+            get
+            {
+                return SelectFoto.Rotate;
+            }
+        }
+
         #region tags_propertyes
 
         /// <summary>
