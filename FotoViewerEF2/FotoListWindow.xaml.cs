@@ -33,6 +33,10 @@ namespace FotoViewerEF2
             InitializeComponent();
 
             _viewModel = new FotoListWindowViewModel(fotoContext, fotos, selectFoto);
+
+            //comboBoxCity.Items = new List<Object>(ViewModel.Cities);
+            //comboBoxCity.SelectionChangedEvent += new UserControlComboBox.SelectionChangedHandler(ViewModel.SelectCity);
+
             UpdateViewModel();
         }
 

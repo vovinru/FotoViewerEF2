@@ -82,6 +82,9 @@
       <DependentUpon>FilterWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="FilterWindowViewModel.cs" />
+    <Compile Include="UserControlComboBox.xaml.cs">
+      <DependentUpon>UserControlComboBox.xaml</DependentUpon>
+    </Compile>
     <Page Include="CheckListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -137,6 +140,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PersonWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlComboBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
