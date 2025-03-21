@@ -199,15 +199,20 @@ namespace ClassLibraryFotoEF
                 return (countFoto0Penalty - 512) / 25;
         }
 
-        public string GetPenaltyReport()
+        public string GetPenaltyReport(Filter filter = null)
         {
+            if(filter == null)
+                filter = new Filter(); 
+
             string result = string.Empty;
 
             Dictionary<int, int> penalties = new Dictionary<int, int>();
 
             int maxPenalty = 0;
 
-            foreach(Foto foto in Fotos)
+            List<Foto> fotos = GetFotosByFilter(filter);
+
+            foreach(Foto foto in fotos)
             {
                 if (!penalties.ContainsKey(foto.CountPenalty))
                 {

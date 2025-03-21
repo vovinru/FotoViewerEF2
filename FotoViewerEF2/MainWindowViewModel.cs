@@ -156,6 +156,12 @@ namespace FotoViewerEF2
             set;
         }
 
+        public Filter Filter
+        {
+            get;
+            set;
+        }
+
 
         #endregion
 
@@ -322,6 +328,19 @@ namespace FotoViewerEF2
                 Foto2.CountLose++;
                 Foto2.CountPenalty = MathFotoEF.Fibonachi(Foto2.CountLose) + FotoContext.GetBasePenalty(Count0Penalty);
 
+                if(Foto1.CountWin > 50)
+                    Foto1.CountPenalty += (Foto1.CountWin - 40) / 10;
+                if (Foto2.CountWin > 50)
+                    Foto2.CountPenalty += (Foto2.CountWin - 40) / 10;
+
+                if (Foto1.CountWin > 100)
+                    Foto1.CountPenalty += (Foto1.CountWin - 100);
+                if (Foto2.CountWin > 100)
+                    Foto2.CountPenalty += (Foto2.CountWin - 100);
+
+                Foto1.CountPenalty++;
+                Foto2.CountPenalty++;
+
                 CountGameNow++;
 
                 if (Top20)
@@ -342,6 +361,16 @@ namespace FotoViewerEF2
                 Foto2.CountWin++;
                 Foto1.CountLose++;
                 Foto1.CountPenalty = MathFotoEF.Fibonachi(Foto1.CountLose) + FotoContext.GetBasePenalty(Count0Penalty);
+
+                if (Foto1.CountWin > 50)
+                    Foto1.CountPenalty += (Foto1.CountWin - 40) / 10;
+                if (Foto2.CountWin > 50)
+                    Foto2.CountPenalty += (Foto2.CountWin - 40) / 10;
+
+                if (Foto1.CountWin > 100)
+                    Foto1.CountPenalty += (Foto1.CountWin - 100);
+                if (Foto2.CountWin > 100)
+                    Foto2.CountPenalty += (Foto2.CountWin - 100);
 
                 CountGameNow++;
 
@@ -393,6 +422,12 @@ namespace FotoViewerEF2
 
             LoadFoto();
             FotoContext.SaveChanges();
+        }
+
+        public void UpdateFotosFilter(Filter filter)
+        {
+            Filter = filter;
+            FotosFilter = FotoContext.GetFotosByFilter(filter);
         }
 
         #endregion

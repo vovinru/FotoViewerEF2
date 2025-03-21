@@ -95,14 +95,14 @@ namespace FotoViewerEF2
         {
             List<Foto> fotos = new List<Foto>();
 
-            foreach (Foto foto in _viewModel.FotoContext.Fotos)
+            foreach (Foto foto in ViewModel.FotosFilter)
                 fotos.Add(foto);
 
 
             fotos.ForEach(f => f.CalculateRaiting());
             fotos.Sort((f1, f2) => (int)(1000*(f2.Raiting - f1.Raiting)));
 
-            FotoListWindow window = new FotoListWindow(_viewModel.FotoContext,
+            FotoListWindow window = new FotoListWindow(ViewModel.FotoContext,
                 fotos, fotos.First());
 
             window.ShowDialog();
@@ -140,7 +140,7 @@ namespace FotoViewerEF2
             WindowFilter window = new WindowFilter(_viewModel.FotoContext);
             window.ShowDialog();
 
-            if (window.ResultWindow != ResultWindowFilter.close)
+            if (window.ResultWindow == ResultWindowFilter.show)
             {
 
                 Filter filter = window.GetFilter();
@@ -159,6 +159,12 @@ namespace FotoViewerEF2
                     ViewModel.FotosFilter = fotos;
                 }
 
+                UpdateViewModel();
+            }
+
+            if(window.ResultWindow == ResultWindowFilter.updateMain)
+            {
+                ViewModel.UpdateFotosFilter(window.GetFilter());
                 UpdateViewModel();
             }
         }
@@ -191,7 +197,7 @@ namespace FotoViewerEF2
 
         private void menuItemPenaltyReport_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.MessageBox.Show(ViewModel.FotoContext.GetPenaltyReport());
+            System.Windows.MessageBox.Show(ViewModel.FotoContext.GetPenaltyReport(ViewModel.Filter));
         }
     }
 }
