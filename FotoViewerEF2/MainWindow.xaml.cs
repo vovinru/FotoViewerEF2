@@ -199,5 +199,15 @@ namespace FotoViewerEF2
         {
             System.Windows.MessageBox.Show(ViewModel.FotoContext.GetPenaltyReport(ViewModel.Filter));
         }
+
+        private void menuItemClearPenalty_Click(object sender, RoutedEventArgs e)
+        {
+            if(System.Windows.MessageBox.Show("Вы дейтсвительно хотите обнулить все штрафы?", "Обнуление штрафов", MessageBoxButton.YesNo) ==
+                MessageBoxResult.Yes)
+            {
+                ViewModel.ClearPenalty();
+                UpdateViewModel();
+            }
+        }
     }
 }

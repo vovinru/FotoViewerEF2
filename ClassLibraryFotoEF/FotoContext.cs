@@ -132,6 +132,11 @@ namespace ClassLibraryFotoEF
                 fotos.RemoveAll(f => (!filter.SelectedPersons.Any(p => f.Persons.Contains(p))) &&
                                         !(f.Persons.Count==0 && !f.NotPersons));
 
+            if (filter.IsNameFilter)
+            {
+                fotos.RemoveAll(f => !f.FileName.Contains(filter.StringNameFilter));
+            }
+
             if (!filter.AllDates)
             {
                 for (int i = 0; i < fotos.Count; i++)

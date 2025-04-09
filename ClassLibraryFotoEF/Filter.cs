@@ -123,6 +123,24 @@ namespace ClassLibraryFotoEF
             set;
         }
 
+        /// <summary>
+        /// включен ли фильтр по имени
+        /// </summary>
+        public bool IsNameFilter
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// значение фильтра по имени
+        /// </summary>
+        public string StringNameFilter
+        {
+            get;
+            set;
+        }
+
         #endregion
 
         #region constructors
@@ -144,6 +162,9 @@ namespace ClassLibraryFotoEF
             AllDates = true;
             DateStart = new DateTime();
             DateEnd = new DateTime();
+
+            IsNameFilter = false;
+            StringNameFilter = string.Empty;
         }
 
         #endregion

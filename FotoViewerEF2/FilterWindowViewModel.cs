@@ -24,6 +24,9 @@ namespace FotoViewerEF2
         public bool _notPersons = true;
         public List<Person> _selectedPersons = new List<Person>();
 
+        public bool _isNameFilter = false;
+        public string _stringNameFilter = string.Empty;
+
         #endregion
 
         #region properties
@@ -291,6 +294,37 @@ namespace FotoViewerEF2
             }
         }
 
+        /// <summary>
+        /// Включен ли фильтр по имени
+        /// </summary>
+        public bool IsNameFilter
+        {
+            get
+            {
+                return _isNameFilter;
+            }
+
+            set
+            {
+                _isNameFilter = value;
+            }
+        }
+
+        /// <summary>
+        /// значение фильтра по имени
+        /// </summary>
+        public string StringNameFilter
+        {
+            get
+            {
+                return _stringNameFilter;
+            }
+            set
+            {
+                _stringNameFilter = value;
+            }
+        }
+
         #endregion
 
         #region constructors
@@ -328,6 +362,9 @@ namespace FotoViewerEF2
             filter.AllDates = AllDates;
             filter.DateStart = DateStart;
             filter.DateEnd = DateEnd;
+
+            filter.IsNameFilter = IsNameFilter;
+            filter.StringNameFilter = StringNameFilter;
 
             return filter;
         }

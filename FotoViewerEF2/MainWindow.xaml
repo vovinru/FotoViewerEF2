@@ -51,6 +51,9 @@
             </MenuItem>
             <MenuItem Header="Отчет штрафов" Name="menuItemPenaltyReport"
                       Click="menuItemPenaltyReport_Click"></MenuItem>
+
+            <MenuItem Header="Обнулить штрафы" Name="menuItemClearPenalty"
+                      Click="menuItemClearPenalty_Click"></MenuItem>
             
         </Menu>
 

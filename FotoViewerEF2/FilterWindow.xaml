@@ -14,6 +14,7 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Name="gridCities">
@@ -124,7 +125,20 @@
             
         </Grid>
 
-        <Grid Grid.Row="4" Name="gridButtons">
+        <Grid Grid.Row="4" Name="gridStringFilter">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <CheckBox Grid.Column="0" Content="Включить фильтр по имени"
+                      IsChecked="{Binding IsNameFilter}"></CheckBox>
+            <TextBox  Grid.Column="1" Text="{Binding StringNameFilter}"></TextBox>
+            
+        </Grid>
+        
+        <Grid Grid.Row="5" Name="gridButtons">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>

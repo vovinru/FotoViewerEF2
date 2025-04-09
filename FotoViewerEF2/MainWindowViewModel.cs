@@ -430,6 +430,16 @@ namespace FotoViewerEF2
             FotosFilter = FotoContext.GetFotosByFilter(filter);
         }
 
+        public void ClearPenalty()
+        {
+            foreach (Foto f in FotoContext.Fotos)
+            {
+                f.CountPenalty = 0;
+            }
+
+            FotoContext.SaveChanges();
+        }
+
         #endregion
 
 
