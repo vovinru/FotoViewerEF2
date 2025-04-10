@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Mapping;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -204,58 +205,23 @@ namespace ClassLibraryFotoEF
                 return (countFoto0Penalty - 512) / 25;
         }
 
-        public string GetPenaltyReport(Filter filter = null)
+        public PenaltyReport GetPenaltyReport(Filter filter = null)
         {
             if(filter == null)
                 filter = new Filter(); 
 
-            string result = string.Empty;
-
-            Dictionary<int, int> penalties = new Dictionary<int, int>();
-
-            int maxPenalty = 0;
+            PenaltyReport penaltyReport = new PenaltyReport();
 
             List<Foto> fotos = GetFotosByFilter(filter);
 
             foreach(Foto foto in fotos)
             {
-                if (!penalties.ContainsKey(foto.CountPenalty))
-                {
-                    penalties.Add(foto.CountPenalty, 0);
-                    maxPenalty = Math.Max(maxPenalty, foto.CountPenalty);
-                }
-
-                penalties[foto.CountPenalty]++;
+                penaltyReport.AddPenalty(foto.CountPenalty);
             }
 
-            int sumPenaltyUndoSpace = 0;
-            int sumPenalty = 0;
-            bool space = false;
+            penaltyReport.CalculationResult();
 
-            for (int i = 0; i < maxPenalty; i++)
-            {
-                if (penalties.ContainsKey(i))
-                {
-                    if (!space)
-                        sumPenaltyUndoSpace += penalties[i] * i;
-                    sumPenalty += penalties[i] * i;
-                }
-                else
-                    space = true;
-            }
-
-            result += String.Format("Штраф до пробела: {0}\n", sumPenaltyUndoSpace);
-            result += String.Format("Общий штраф: {0}\n\n", sumPenalty);
-
-            for (int i = 0; i < maxPenalty; i++)
-            {
-                if (penalties.ContainsKey(i))
-                {
-                    result += String.Format("{0} - {1};\n", i, penalties[i]);
-                }
-            }
-
-            return result;
+            return penaltyReport;
         }
 
     }

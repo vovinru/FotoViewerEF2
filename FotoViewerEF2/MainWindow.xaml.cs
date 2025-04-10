@@ -197,7 +197,8 @@ namespace FotoViewerEF2
 
         private void menuItemPenaltyReport_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.MessageBox.Show(ViewModel.FotoContext.GetPenaltyReport(ViewModel.Filter));
+            PenaltyReportWindow window = new PenaltyReportWindow(ViewModel.FotoContext.GetPenaltyReport(ViewModel.Filter));
+            window.ShowDialog();
         }
 
         private void menuItemClearPenalty_Click(object sender, RoutedEventArgs e)

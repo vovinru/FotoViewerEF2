@@ -1,0 +1,36 @@
+﻿<Window x:Class="FotoViewerEF2.PenaltyReportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FotoViewerEF2"
+        mc:Ignorable="d"
+        Title="Отчет по штрафам" Height="450" Width="400" MinWidth="400" MinHeight="300">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Сумма штрафа до пробела -->
+        <TextBlock Grid.Row="0" Text="{Binding SumUndoSpaceText}" Margin="0,0,0,5"/>
+
+        <!-- Общая сумма штрафа -->
+        <TextBlock Grid.Row="1" Text="{Binding TotalSumText}" Margin="0,0,0,10"/>
+
+        <!-- Таблица штрафов -->
+        <DataGrid Grid.Row="2" ItemsSource="{Binding Penalties}" AutoGenerateColumns="False"
+                 IsReadOnly="True" SelectionMode="Single" HeadersVisibility="Column">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Размер штрафа" Binding="{Binding Key}" Width="*"/>
+                <DataGridTextColumn Header="Количество фото" Binding="{Binding Value}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Кнопка закрытия -->
+        <Button Grid.Row="3" Content="Закрыть" HorizontalAlignment="Right" 
+                Width="80" Margin="0,10,0,0" Command="{Binding CloseCommand}"/>
+    </Grid>
+</Window>

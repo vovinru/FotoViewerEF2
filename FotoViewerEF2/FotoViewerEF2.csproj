@@ -82,6 +82,10 @@
       <DependentUpon>FilterWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="FilterWindowViewModel.cs" />
+    <Compile Include="PenaltyReportViewModel.cs" />
+    <Compile Include="PenaltyReportWindow.xaml.cs">
+      <DependentUpon>PenaltyReportWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControlComboBox.xaml.cs">
       <DependentUpon>UserControlComboBox.xaml</DependentUpon>
     </Compile>
@@ -136,6 +140,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="FilterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PenaltyReportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
